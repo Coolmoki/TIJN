@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TIJNModelStoreContainer" CdmEntityContainer="TIJNEntities">
+    <EntitySetMapping Name="BankAccounts">
+      <EntityTypeMapping TypeName="TIJNModel.BankAccount">
+        <MappingFragment StoreEntitySet="BankAccount">
+          <ScalarProperty Name="bankaccountID" ColumnName="bankaccountID" />
+          <ScalarProperty Name="accountNumber" ColumnName="accountNumber" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="isPrimary" ColumnName="isPrimary" />
+          <ScalarProperty Name="isVerified" ColumnName="isVerified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Plans">
+      <EntityTypeMapping TypeName="TIJNModel.Plan">
+        <MappingFragment StoreEntitySet="Plan">
+          <ScalarProperty Name="planID" ColumnName="planID" />
+          <ScalarProperty Name="weeklyTransferLimit" ColumnName="weeklyTransferLimit" />
+          <ScalarProperty Name="singleTransferLimit" ColumnName="singleTransferLimit" />
+          <ScalarProperty Name="weeklyPaymentLimit" ColumnName="weeklyPaymentLimit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestPayments">
+      <EntityTypeMapping TypeName="TIJNModel.RequestPayment">
+        <MappingFragment StoreEntitySet="RequestPayment">
+          <ScalarProperty Name="requestID" ColumnName="requestID" />
+          <ScalarProperty Name="payeeUserID" ColumnName="payeeUserID" />
+          <ScalarProperty Name="requestDateTime" ColumnName="requestDateTime" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="memo" ColumnName="memo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestPaymentTokens">
+      <EntityTypeMapping TypeName="TIJNModel.RequestPaymentToken">
+        <MappingFragment StoreEntitySet="RequestPaymentToken">
+          <ScalarProperty Name="requestPaymentTokenID" ColumnName="requestPaymentTokenID" />
+          <ScalarProperty Name="requestID" ColumnName="requestID" />
+          <ScalarProperty Name="payorTokenID" ColumnName="payorTokenID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SendPayments">
+      <EntityTypeMapping TypeName="TIJNModel.SendPayment">
+        <MappingFragment StoreEntitySet="SendPayment">
+          <ScalarProperty Name="paymentID" ColumnName="paymentID" />
+          <ScalarProperty Name="payorUserID" ColumnName="payorUserID" />
+          <ScalarProperty Name="payeeTokenID" ColumnName="payeeTokenID" />
+          <ScalarProperty Name="paymentDateTime" ColumnName="paymentDateTime" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="memo" ColumnName="memo" />
+          <ScalarProperty Name="isCancelled" ColumnName="isCancelled" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tokens">
+      <EntityTypeMapping TypeName="TIJNModel.Token">
+        <MappingFragment StoreEntitySet="Token">
+          <ScalarProperty Name="tokenID" ColumnName="tokenID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="tokentype" ColumnName="tokentype" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+          <ScalarProperty Name="isVerifiedToken" ColumnName="isVerifiedToken" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="TIJNModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="planID" ColumnName="planID" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="SSN" ColumnName="SSN" />
+          <ScalarProperty Name="balance" ColumnName="balance" />
+          <ScalarProperty Name="isConfirmed" ColumnName="isConfirmed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
