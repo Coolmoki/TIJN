@@ -10,7 +10,15 @@ namespace TIJN.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var userId = System.Web.HttpContext.Current.Session["UserId"];
+            if (userId != null)
+            {
+                return Redirect("~/Users/Details/" + userId);
+            }
+            else
+            {
+                return Redirect("~/Users/Login");
+            }
         }
 
         public ActionResult About()

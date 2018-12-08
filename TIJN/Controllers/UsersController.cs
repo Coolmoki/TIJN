@@ -43,6 +43,26 @@ namespace TIJN.Controllers
             return View();
         }
 
+        // GET: Users/Login
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        // GET: Users/Logout
+        public ActionResult Logout()
+        {
+            System.Web.HttpContext.Current.Session.Clear();
+            return Redirect("~/Home/Index");
+        }
+
+        // GET: Users/GetIn
+        public ActionResult GetIn()
+        {
+            System.Web.HttpContext.Current.Session.Add("UserId", 1);
+            return Redirect("~/Home/Index");
+        }
+
         // POST: Users/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
