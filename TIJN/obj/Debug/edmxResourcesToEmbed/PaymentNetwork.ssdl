@@ -68,6 +68,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_payment_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="payment" Type="Self.payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="payment">
+        <PropertyRef Name="payeeUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_payment_User1">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="payment" Type="Self.payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="payment">
+        <PropertyRef Name="payorUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_User_Plan">
     <End Role="Plan" Type="Self.Plan" Multiplicity="1" />
     <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -89,6 +113,14 @@
     <AssociationSet Name="FK_BankAccount_User" Association="Self.FK_BankAccount_User">
       <End Role="User" EntitySet="User" />
       <End Role="BankAccount" EntitySet="BankAccount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_payment_User" Association="Self.FK_payment_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="payment" EntitySet="payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_payment_User1" Association="Self.FK_payment_User1">
+      <End Role="User" EntitySet="User" />
+      <End Role="payment" EntitySet="payment" />
     </AssociationSet>
     <AssociationSet Name="FK_User_Plan" Association="Self.FK_User_Plan">
       <End Role="Plan" EntitySet="Plan" />

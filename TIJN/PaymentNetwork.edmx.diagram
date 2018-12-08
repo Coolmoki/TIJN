@@ -12,6 +12,8 @@
         <EntityTypeShape EntityType="TIJNModel.sysdiagram" Width="1.5" PointX="3.375" PointY="3.75" />
         <AssociationConnector Association="TIJNModel.FK_BankAccount_User" />
         <AssociationConnector Association="TIJNModel.FK_User_Plan" />
+        <AssociationConnector Association="TIJNModel.FK_payment_User" />
+        <AssociationConnector Association="TIJNModel.FK_payment_User1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

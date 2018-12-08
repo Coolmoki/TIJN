@@ -17,6 +17,8 @@ namespace TIJN
         public User()
         {
             this.BankAccounts = new HashSet<BankAccount>();
+            this.payments = new HashSet<payment>();
+            this.payments1 = new HashSet<payment>();
         }
     
         public int userID { get; set; }
@@ -32,5 +34,7 @@ namespace TIJN
     
         public virtual ICollection<BankAccount> BankAccounts { get; set; }
         public virtual Plan Plan { get; set; }
+        public virtual ICollection<payment> payments { get; set; }
+        public virtual ICollection<payment> payments1 { get; set; }
     }
 }

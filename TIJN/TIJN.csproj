@@ -139,6 +139,7 @@
     </Compile>
     <Compile Include="Controllers\BankAccountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\paymentsController.cs" />
     <Compile Include="Controllers\PlansController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -242,6 +243,11 @@
     <Content Include="Views\Plans\Details.cshtml" />
     <Content Include="Views\Plans\Edit.cshtml" />
     <Content Include="Views\Plans\Index.cshtml" />
+    <Content Include="Views\payments\Create.cshtml" />
+    <Content Include="Views\payments\Delete.cshtml" />
+    <Content Include="Views\payments\Details.cshtml" />
+    <Content Include="Views\payments\Edit.cshtml" />
+    <Content Include="Views\payments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

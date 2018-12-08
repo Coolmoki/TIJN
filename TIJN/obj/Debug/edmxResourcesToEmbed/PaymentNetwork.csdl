@@ -38,6 +38,8 @@
     <Property Name="loginStatus" Type="Int32" />
     <NavigationProperty Name="BankAccounts" Relationship="TIJNModel.FK_BankAccount_User" FromRole="User" ToRole="BankAccount" />
     <NavigationProperty Name="Plan" Relationship="TIJNModel.FK_User_Plan" FromRole="User" ToRole="Plan" />
+    <NavigationProperty Name="payments" Relationship="TIJNModel.FK_payment_User" FromRole="User" ToRole="payment" />
+    <NavigationProperty Name="payments1" Relationship="TIJNModel.FK_payment_User1" FromRole="User" ToRole="payment" />
   </EntityType>
   <EntityContainer Name="TIJNEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="BankAccounts" EntityType="Self.BankAccount" />
@@ -53,6 +55,14 @@
       <End Role="Plan" EntitySet="Plans" />
       <End Role="User" EntitySet="Users" />
     </AssociationSet>
+    <AssociationSet Name="FK_payment_User" Association="TIJNModel.FK_payment_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="payment" EntitySet="payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_payment_User1" Association="TIJNModel.FK_payment_User1">
+      <End Role="User" EntitySet="Users" />
+      <End Role="payment" EntitySet="payments" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="payment">
     <Key>
@@ -64,6 +74,8 @@
     <Property Name="memo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="payeeUserID" Type="Int32" Nullable="false" />
     <Property Name="status" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="TIJNModel.FK_payment_User" FromRole="payment" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="TIJNModel.FK_payment_User1" FromRole="payment" ToRole="User" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
@@ -96,6 +108,30 @@
       </Principal>
       <Dependent Role="User">
         <PropertyRef Name="planID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_payment_User">
+    <End Type="TIJNModel.User" Role="User" Multiplicity="1" />
+    <End Type="TIJNModel.payment" Role="payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="payment">
+        <PropertyRef Name="payeeUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_payment_User1">
+    <End Type="TIJNModel.User" Role="User" Multiplicity="1" />
+    <End Type="TIJNModel.payment" Role="payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="payment">
+        <PropertyRef Name="payorUserID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

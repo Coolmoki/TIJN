@@ -20,5 +20,8 @@ namespace TIJN
         public string memo { get; set; }
         public int payeeUserID { get; set; }
         public int status { get; set; }
+    
+        public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
     }
 }
