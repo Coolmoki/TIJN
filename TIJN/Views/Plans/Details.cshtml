@@ -1,0 +1,43 @@
+﻿@model TIJN.Plan
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Plan</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.weeklyTransferLimit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.weeklyTransferLimit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.singleTransferLimit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.singleTransferLimit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.weeklyPaymentLimit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.weeklyPaymentLimit)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.planID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

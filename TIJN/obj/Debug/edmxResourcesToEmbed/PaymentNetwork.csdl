@@ -9,6 +9,7 @@
     <Property Name="userID" Type="Int32" Nullable="false" />
     <Property Name="isPrimary" Type="Boolean" Nullable="false" />
     <Property Name="isVerified" Type="Boolean" Nullable="false" />
+    <Property Name="balance" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
   </EntityType>
   <EntityType Name="Plan">
     <Key>
@@ -18,47 +19,6 @@
     <Property Name="weeklyTransferLimit" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="singleTransferLimit" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="weeklyPaymentLimit" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-  </EntityType>
-  <EntityType Name="RequestPayment">
-    <Key>
-      <PropertyRef Name="requestID" />
-    </Key>
-    <Property Name="requestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="payeeUserID" Type="Int32" Nullable="false" />
-    <Property Name="requestDateTime" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="memo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="RequestPaymentToken">
-    <Key>
-      <PropertyRef Name="requestPaymentTokenID" />
-    </Key>
-    <Property Name="requestPaymentTokenID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="requestID" Type="Int32" Nullable="false" />
-    <Property Name="payorTokenID" Type="Int32" Nullable="false" />
-  </EntityType>
-  <EntityType Name="SendPayment">
-    <Key>
-      <PropertyRef Name="paymentID" />
-    </Key>
-    <Property Name="paymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="payorUserID" Type="Int32" Nullable="false" />
-    <Property Name="payeeTokenID" Type="Int32" Nullable="false" />
-    <Property Name="paymentDateTime" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="memo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-    <Property Name="isCancelled" Type="Boolean" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Token">
-    <Key>
-      <PropertyRef Name="tokenID" />
-    </Key>
-    <Property Name="tokenID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="userID" Type="Int32" Nullable="false" />
-    <Property Name="tokentype" Type="Int32" Nullable="false" />
-    <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-    <Property Name="phoneNumber" Type="Int32" />
-    <Property Name="isVerifiedToken" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -70,15 +30,26 @@
     <Property Name="lastName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="SSN" Type="Int32" />
     <Property Name="balance" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="isConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phoneNumber" Type="Int32" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="loginStatus" Type="Int32" />
   </EntityType>
   <EntityContainer Name="TIJNEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="BankAccounts" EntityType="Self.BankAccount" />
     <EntitySet Name="Plans" EntityType="Self.Plan" />
-    <EntitySet Name="RequestPayments" EntityType="Self.RequestPayment" />
-    <EntitySet Name="RequestPaymentTokens" EntityType="Self.RequestPaymentToken" />
-    <EntitySet Name="SendPayments" EntityType="Self.SendPayment" />
-    <EntitySet Name="Tokens" EntityType="Self.Token" />
     <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="payments" EntityType="TIJNModel.payment" />
   </EntityContainer>
+  <EntityType Name="payment">
+    <Key>
+      <PropertyRef Name="paymentID" />
+    </Key>
+    <Property Name="paymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="payorUserID" Type="Int32" Nullable="false" />
+    <Property Name="amount" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="memo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="payeeUserID" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+  </EntityType>
 </Schema>

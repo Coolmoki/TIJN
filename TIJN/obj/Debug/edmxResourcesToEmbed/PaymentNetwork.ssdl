@@ -9,6 +9,18 @@
     <Property Name="userID" Type="int" Nullable="false" />
     <Property Name="isPrimary" Type="bit" Nullable="false" />
     <Property Name="isVerified" Type="bit" Nullable="false" />
+    <Property Name="balance" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="payment">
+    <Key>
+      <PropertyRef Name="paymentID" />
+    </Key>
+    <Property Name="paymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="payorUserID" Type="int" Nullable="false" />
+    <Property Name="amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="memo" Type="varchar" MaxLength="50" />
+    <Property Name="payeeUserID" Type="int" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Plan">
     <Key>
@@ -18,47 +30,6 @@
     <Property Name="weeklyTransferLimit" Type="decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="singleTransferLimit" Type="decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="weeklyPaymentLimit" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-  </EntityType>
-  <EntityType Name="RequestPayment">
-    <Key>
-      <PropertyRef Name="requestID" />
-    </Key>
-    <Property Name="requestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="payeeUserID" Type="int" Nullable="false" />
-    <Property Name="requestDateTime" Type="datetime" Nullable="false" />
-    <Property Name="amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="memo" Type="varchar" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="RequestPaymentToken">
-    <Key>
-      <PropertyRef Name="requestPaymentTokenID" />
-    </Key>
-    <Property Name="requestPaymentTokenID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="requestID" Type="int" Nullable="false" />
-    <Property Name="payorTokenID" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="SendPayment">
-    <Key>
-      <PropertyRef Name="paymentID" />
-    </Key>
-    <Property Name="paymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="payorUserID" Type="int" Nullable="false" />
-    <Property Name="payeeTokenID" Type="int" Nullable="false" />
-    <Property Name="paymentDateTime" Type="datetime" Nullable="false" />
-    <Property Name="amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="memo" Type="varchar" MaxLength="45" />
-    <Property Name="isCancelled" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Token">
-    <Key>
-      <PropertyRef Name="tokenID" />
-    </Key>
-    <Property Name="tokenID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="userID" Type="int" Nullable="false" />
-    <Property Name="tokentype" Type="int" Nullable="false" />
-    <Property Name="email" Type="varchar" MaxLength="45" />
-    <Property Name="phoneNumber" Type="int" />
-    <Property Name="isVerifiedToken" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -70,15 +41,15 @@
     <Property Name="lastName" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="SSN" Type="int" />
     <Property Name="balance" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="isConfirmed" Type="bit" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="phoneNumber" Type="int" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="loginStatus" Type="int" />
   </EntityType>
   <EntityContainer Name="TIJNModelStoreContainer">
     <EntitySet Name="BankAccount" EntityType="Self.BankAccount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="payment" EntityType="Self.payment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Plan" EntityType="Self.Plan" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="RequestPayment" EntityType="Self.RequestPayment" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="RequestPaymentToken" EntityType="Self.RequestPaymentToken" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="SendPayment" EntityType="Self.SendPayment" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Token" EntityType="Self.Token" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

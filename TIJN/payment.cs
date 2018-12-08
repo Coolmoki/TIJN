@@ -12,12 +12,13 @@ namespace TIJN
     using System;
     using System.Collections.Generic;
     
-    public partial class RequestPayment
+    public partial class payment
     {
-        public int requestID { get; set; }
-        public int payeeUserID { get; set; }
-        public System.DateTime requestDateTime { get; set; }
+        public int paymentID { get; set; }
+        public int payorUserID { get; set; }
         public decimal amount { get; set; }
         public string memo { get; set; }
+        public int payeeUserID { get; set; }
+        public int status { get; set; }
     }
 }

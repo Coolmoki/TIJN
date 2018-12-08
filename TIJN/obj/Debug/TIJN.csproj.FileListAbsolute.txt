@@ -81,3 +81,4 @@ C:\Users\coolm\source\repos\TIJN\TIJN\obj\Debug\TIJN.csproj.CoreCompileInputs.ca
 C:\Users\coolm\source\repos\TIJN\TIJN\obj\Debug\TIJN.csproj.CopyComplete
 C:\Users\coolm\source\repos\TIJN\TIJN\obj\Debug\TIJN.dll
 C:\Users\coolm\source\repos\TIJN\TIJN\obj\Debug\TIJN.pdb
+C:\Users\coolm\source\repos\TIJN\TIJN\obj\Debug\TIJN.csprojAssemblyReference.cache

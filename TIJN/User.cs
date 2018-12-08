@@ -20,6 +20,9 @@ namespace TIJN
         public string lastName { get; set; }
         public Nullable<int> SSN { get; set; }
         public decimal balance { get; set; }
-        public bool isConfirmed { get; set; }
+        public string email { get; set; }
+        public Nullable<int> phoneNumber { get; set; }
+        public string password { get; set; }
+        public Nullable<int> loginStatus { get; set; }
     }
 }

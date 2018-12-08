@@ -137,10 +137,16 @@
     <Compile Include="BankAccount.cs">
       <DependentUpon>PaymentNetwork.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\BankAccountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\paymentsController.cs" />
+    <Compile Include="Controllers\PlansController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="payment.cs">
+      <DependentUpon>PaymentNetwork.tt</DependentUpon>
     </Compile>
     <Compile Include="PaymentNetwork.Context.cs">
       <AutoGen>True</AutoGen>
@@ -161,18 +167,6 @@
       <DependentUpon>PaymentNetwork.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequestPayment.cs">
-      <DependentUpon>PaymentNetwork.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RequestPaymentToken.cs">
-      <DependentUpon>PaymentNetwork.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SendPayment.cs">
-      <DependentUpon>PaymentNetwork.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Token.cs">
-      <DependentUpon>PaymentNetwork.tt</DependentUpon>
-    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>PaymentNetwork.tt</DependentUpon>
     </Compile>
@@ -235,6 +229,21 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\BankAccounts\Create.cshtml" />
+    <Content Include="Views\BankAccounts\Delete.cshtml" />
+    <Content Include="Views\BankAccounts\Details.cshtml" />
+    <Content Include="Views\BankAccounts\Edit.cshtml" />
+    <Content Include="Views\BankAccounts\Index.cshtml" />
+    <Content Include="Views\payments\Create.cshtml" />
+    <Content Include="Views\payments\Delete.cshtml" />
+    <Content Include="Views\payments\Details.cshtml" />
+    <Content Include="Views\payments\Edit.cshtml" />
+    <Content Include="Views\payments\Index.cshtml" />
+    <Content Include="Views\Plans\Create.cshtml" />
+    <Content Include="Views\Plans\Delete.cshtml" />
+    <Content Include="Views\Plans\Details.cshtml" />
+    <Content Include="Views\Plans\Edit.cshtml" />
+    <Content Include="Views\Plans\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

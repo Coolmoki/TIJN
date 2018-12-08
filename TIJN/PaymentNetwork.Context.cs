@@ -27,10 +27,7 @@ namespace TIJN
     
         public DbSet<BankAccount> BankAccounts { get; set; }
         public DbSet<Plan> Plans { get; set; }
-        public DbSet<RequestPayment> RequestPayments { get; set; }
-        public DbSet<RequestPaymentToken> RequestPaymentTokens { get; set; }
-        public DbSet<SendPayment> SendPayments { get; set; }
-        public DbSet<Token> Tokens { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<payment> payments { get; set; }
     }
 }

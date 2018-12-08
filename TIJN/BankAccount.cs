@@ -19,5 +19,6 @@ namespace TIJN
         public int userID { get; set; }
         public bool isPrimary { get; set; }
         public bool isVerified { get; set; }
+        public decimal balance { get; set; }
     }
 }
