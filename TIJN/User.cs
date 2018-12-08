@@ -14,6 +14,11 @@ namespace TIJN
     
     public partial class User
     {
+        public User()
+        {
+            this.BankAccounts = new HashSet<BankAccount>();
+        }
+    
         public int userID { get; set; }
         public int planID { get; set; }
         public string firstName { get; set; }
@@ -24,5 +29,8 @@ namespace TIJN
         public Nullable<int> phoneNumber { get; set; }
         public string password { get; set; }
         public Nullable<int> loginStatus { get; set; }
+    
+        public virtual ICollection<BankAccount> BankAccounts { get; set; }
+        public virtual Plan Plan { get; set; }
     }
 }

@@ -17,7 +17,8 @@ namespace TIJN.Controllers
         // GET: BankAccounts
         public ActionResult Index()
         {
-            return View(db.BankAccounts.ToList());
+            var bankAccounts = db.BankAccounts.Include(b => b.User);
+            return View(bankAccounts.ToList());
         }
 
         // GET: BankAccounts/Details/5
@@ -38,6 +39,7 @@ namespace TIJN.Controllers
         // GET: BankAccounts/Create
         public ActionResult Create()
         {
+            ViewBag.userID = new SelectList(db.Users, "userID", "firstName");
             return View();
         }
 
@@ -46,7 +48,7 @@ namespace TIJN.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "bankaccountID,accountNumber,userID,isPrimary,isVerified")] BankAccount bankAccount)
+        public ActionResult Create([Bind(Include = "bankaccountID,accountNumber,userID,isPrimary,isVerified,balance")] BankAccount bankAccount)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +57,7 @@ namespace TIJN.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.userID = new SelectList(db.Users, "userID", "firstName", bankAccount.userID);
             return View(bankAccount);
         }
 
@@ -70,6 +73,7 @@ namespace TIJN.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.userID = new SelectList(db.Users, "userID", "firstName", bankAccount.userID);
             return View(bankAccount);
         }
 
@@ -78,7 +82,7 @@ namespace TIJN.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "bankaccountID,accountNumber,userID,isPrimary,isVerified")] BankAccount bankAccount)
+        public ActionResult Edit([Bind(Include = "bankaccountID,accountNumber,userID,isPrimary,isVerified,balance")] BankAccount bankAccount)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,7 @@ namespace TIJN.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.userID = new SelectList(db.Users, "userID", "firstName", bankAccount.userID);
             return View(bankAccount);
         }
 

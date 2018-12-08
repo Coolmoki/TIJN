@@ -12,15 +12,12 @@ namespace TIJN
     using System;
     using System.Collections.Generic;
     
-    public partial class BankAccount
+    public partial class sysdiagram
     {
-        public int bankaccountID { get; set; }
-        public int accountNumber { get; set; }
-        public int userID { get; set; }
-        public bool isPrimary { get; set; }
-        public bool isVerified { get; set; }
-        public decimal balance { get; set; }
-    
-        public virtual User User { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

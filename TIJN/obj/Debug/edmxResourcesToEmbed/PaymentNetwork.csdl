@@ -10,6 +10,7 @@
     <Property Name="isPrimary" Type="Boolean" Nullable="false" />
     <Property Name="isVerified" Type="Boolean" Nullable="false" />
     <Property Name="balance" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <NavigationProperty Name="User" Relationship="TIJNModel.FK_BankAccount_User" FromRole="BankAccount" ToRole="User" />
   </EntityType>
   <EntityType Name="Plan">
     <Key>
@@ -19,6 +20,7 @@
     <Property Name="weeklyTransferLimit" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="singleTransferLimit" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="weeklyPaymentLimit" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="TIJNModel.FK_User_Plan" FromRole="Plan" ToRole="User" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -34,12 +36,23 @@
     <Property Name="phoneNumber" Type="Int32" />
     <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="loginStatus" Type="Int32" />
+    <NavigationProperty Name="BankAccounts" Relationship="TIJNModel.FK_BankAccount_User" FromRole="User" ToRole="BankAccount" />
+    <NavigationProperty Name="Plan" Relationship="TIJNModel.FK_User_Plan" FromRole="User" ToRole="Plan" />
   </EntityType>
   <EntityContainer Name="TIJNEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="BankAccounts" EntityType="Self.BankAccount" />
     <EntitySet Name="Plans" EntityType="Self.Plan" />
     <EntitySet Name="Users" EntityType="Self.User" />
     <EntitySet Name="payments" EntityType="TIJNModel.payment" />
+    <EntitySet Name="sysdiagrams" EntityType="TIJNModel.sysdiagram" />
+    <AssociationSet Name="FK_BankAccount_User" Association="TIJNModel.FK_BankAccount_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="BankAccount" EntitySet="BankAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Plan" Association="TIJNModel.FK_User_Plan">
+      <End Role="Plan" EntitySet="Plans" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="payment">
     <Key>
@@ -52,4 +65,38 @@
     <Property Name="payeeUserID" Type="Int32" Nullable="false" />
     <Property Name="status" Type="Int32" Nullable="false" />
   </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_BankAccount_User">
+    <End Type="TIJNModel.User" Role="User" Multiplicity="1" />
+    <End Type="TIJNModel.BankAccount" Role="BankAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="BankAccount">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Plan">
+    <End Type="TIJNModel.Plan" Role="Plan" Multiplicity="1" />
+    <End Type="TIJNModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Plan">
+        <PropertyRef Name="planID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="planID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

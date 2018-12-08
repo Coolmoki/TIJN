@@ -31,6 +31,16 @@
     <Property Name="singleTransferLimit" Type="decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="weeklyPaymentLimit" Type="decimal" Precision="10" Scale="2" Nullable="false" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="userID" />
@@ -46,10 +56,43 @@
     <Property Name="password" Type="varchar" MaxLength="50" />
     <Property Name="loginStatus" Type="int" />
   </EntityType>
+  <Association Name="FK_BankAccount_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="BankAccount" Type="Self.BankAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="BankAccount">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Plan">
+    <End Role="Plan" Type="Self.Plan" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Plan">
+        <PropertyRef Name="planID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="planID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="TIJNModelStoreContainer">
     <EntitySet Name="BankAccount" EntityType="Self.BankAccount" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="payment" EntityType="Self.payment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Plan" EntityType="Self.Plan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_BankAccount_User" Association="Self.FK_BankAccount_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="BankAccount" EntitySet="BankAccount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Plan" Association="Self.FK_User_Plan">
+      <End Role="Plan" EntitySet="Plan" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

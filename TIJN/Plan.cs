@@ -14,9 +14,16 @@ namespace TIJN
     
     public partial class Plan
     {
+        public Plan()
+        {
+            this.Users = new HashSet<User>();
+        }
+    
         public int planID { get; set; }
         public decimal weeklyTransferLimit { get; set; }
         public decimal singleTransferLimit { get; set; }
         public decimal weeklyPaymentLimit { get; set; }
+    
+        public virtual ICollection<User> Users { get; set; }
     }
 }

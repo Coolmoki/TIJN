@@ -9,6 +9,9 @@
         <EntityTypeShape EntityType="TIJNModel.Plan" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TIJNModel.User" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TIJNModel.payment" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="TIJNModel.sysdiagram" Width="1.5" PointX="3.375" PointY="3.75" />
+        <AssociationConnector Association="TIJNModel.FK_BankAccount_User" />
+        <AssociationConnector Association="TIJNModel.FK_User_Plan" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

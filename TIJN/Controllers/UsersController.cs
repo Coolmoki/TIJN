@@ -17,7 +17,8 @@ namespace TIJN.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            var users = db.Users.Include(u => u.Plan);
+            return View(users.ToList());
         }
 
         // GET: Users/Details/5
@@ -38,6 +39,7 @@ namespace TIJN.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
+            ViewBag.planID = new SelectList(db.Plans, "planID", "planID");
             return View();
         }
 
@@ -46,7 +48,7 @@ namespace TIJN.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "userID,planID,firstName,lastName,SSN,balance,isConfirmed")] User user)
+        public ActionResult Create([Bind(Include = "userID,planID,firstName,lastName,SSN,balance,email,phoneNumber,password,loginStatus")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +57,7 @@ namespace TIJN.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.planID = new SelectList(db.Plans, "planID", "planID", user.planID);
             return View(user);
         }
 
@@ -70,6 +73,7 @@ namespace TIJN.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.planID = new SelectList(db.Plans, "planID", "planID", user.planID);
             return View(user);
         }
 
@@ -78,7 +82,7 @@ namespace TIJN.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "userID,planID,firstName,lastName,SSN,balance,isConfirmed")] User user)
+        public ActionResult Edit([Bind(Include = "userID,planID,firstName,lastName,SSN,balance,email,phoneNumber,password,loginStatus")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,7 @@ namespace TIJN.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.planID = new SelectList(db.Plans, "planID", "planID", user.planID);
             return View(user);
         }
 

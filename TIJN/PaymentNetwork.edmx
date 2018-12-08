@@ -36,6 +36,16 @@
           <Property Name="singleTransferLimit" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="weeklyPaymentLimit" Type="decimal" Precision="10" Scale="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="userID" />
@@ -51,11 +61,44 @@
           <Property Name="password" Type="varchar" MaxLength="50" />
           <Property Name="loginStatus" Type="int" />
         </EntityType>
+        <Association Name="FK_BankAccount_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="BankAccount" Type="Self.BankAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="BankAccount">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Plan">
+          <End Role="Plan" Type="Self.Plan" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plan">
+              <PropertyRef Name="planID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="planID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TIJNModelStoreContainer">
           <EntitySet Name="BankAccount" EntityType="Self.BankAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="payment" EntityType="Self.payment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Plan" EntityType="Self.Plan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BankAccount_User" Association="Self.FK_BankAccount_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="BankAccount" EntitySet="BankAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Plan" Association="Self.FK_User_Plan">
+            <End Role="Plan" EntitySet="Plan" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -71,6 +114,7 @@
           <Property Name="isPrimary" Type="Boolean" Nullable="false" />
           <Property Name="isVerified" Type="Boolean" Nullable="false" />
           <Property Name="balance" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <NavigationProperty Name="User" Relationship="TIJNModel.FK_BankAccount_User" FromRole="BankAccount" ToRole="User" />
         </EntityType>
         <EntityType Name="Plan">
           <Key>
@@ -80,6 +124,7 @@
           <Property Name="weeklyTransferLimit" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="singleTransferLimit" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="weeklyPaymentLimit" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="TIJNModel.FK_User_Plan" FromRole="Plan" ToRole="User" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -95,12 +140,23 @@
           <Property Name="phoneNumber" Type="Int32" />
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="loginStatus" Type="Int32" />
+          <NavigationProperty Name="BankAccounts" Relationship="TIJNModel.FK_BankAccount_User" FromRole="User" ToRole="BankAccount" />
+          <NavigationProperty Name="Plan" Relationship="TIJNModel.FK_User_Plan" FromRole="User" ToRole="Plan" />
         </EntityType>
         <EntityContainer Name="TIJNEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BankAccounts" EntityType="Self.BankAccount" />
           <EntitySet Name="Plans" EntityType="Self.Plan" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="payments" EntityType="TIJNModel.payment" />
+          <EntitySet Name="sysdiagrams" EntityType="TIJNModel.sysdiagram" />
+          <AssociationSet Name="FK_BankAccount_User" Association="TIJNModel.FK_BankAccount_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="BankAccount" EntitySet="BankAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Plan" Association="TIJNModel.FK_User_Plan">
+            <End Role="Plan" EntitySet="Plans" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="payment">
           <Key>
@@ -113,6 +169,40 @@
           <Property Name="payeeUserID" Type="Int32" Nullable="false" />
           <Property Name="status" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_BankAccount_User">
+          <End Type="TIJNModel.User" Role="User" Multiplicity="1" />
+          <End Type="TIJNModel.BankAccount" Role="BankAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="BankAccount">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Plan">
+          <End Type="TIJNModel.Plan" Role="Plan" Multiplicity="1" />
+          <End Type="TIJNModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plan">
+              <PropertyRef Name="planID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="planID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -166,6 +256,17 @@
                 <ScalarProperty Name="amount" ColumnName="amount" />
                 <ScalarProperty Name="payorUserID" ColumnName="payorUserID" />
                 <ScalarProperty Name="paymentID" ColumnName="paymentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TIJNModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
