@@ -29,9 +29,7 @@
         <th>
             @Html.DisplayNameFor(model => model.RequestedPayments.First().memo)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RequestedPayments.First().status)
-        </th>
+     
         <th>
             From
         </th>
@@ -47,16 +45,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.memo)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.status)
-            </td>
+        
             <td>
                 @Html.DisplayFor(modelItem => item.User1.firstName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.paymentID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.paymentID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.paymentID })
+             
+                @Html.ActionLink("Details", "Details", new { id = item.paymentID }) 
+               
             </td>
         </tr>
     }
@@ -71,9 +67,7 @@
         <th>
             @Html.DisplayNameFor(model => model.RequestedPayments.First().memo)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RequestedPayments.First().status)
-        </th>
+     
         <th>
             To
         </th>
@@ -89,16 +83,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.memo)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.status)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.User.firstName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.paymentID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.paymentID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.paymentID })
+               
+                @Html.ActionLink("Details", "Details", new { id = item.paymentID }) 
+              
             </td>
         </tr>
     }
