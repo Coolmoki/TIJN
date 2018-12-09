@@ -185,6 +185,10 @@ namespace TIJN.Controllers
                 db.Entry(user).State = EntityState.Modified;
                 user.balance = user.balance + transferVM.amount;
                 db.SaveChanges();
+                db.Entry(bankAccount).State = EntityState.Modified;
+                bankAccount.isVerified = true;
+                db.SaveChanges();
+
                 return RedirectToAction("Index", new { userId = bankAccount.userID });
             }
 
