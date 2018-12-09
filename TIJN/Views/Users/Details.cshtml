@@ -1,15 +1,18 @@
 ﻿@model TIJN.User
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Welcome";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
+<h2>Welcome to TIJN </h2>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.userID })
+</p>
+<p>
+    @Html.ActionLink("BankAccount", "Index", "BankAccounts", new { userId = Model.userID },null)
+</p>
 <div>
-    <h4>User</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.firstName)
@@ -60,22 +63,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.password)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.loginStatus)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.loginStatus)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Plan.planID)
         </dt>
 
@@ -85,7 +72,3 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.userID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

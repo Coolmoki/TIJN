@@ -15,7 +15,7 @@ namespace TIJN.Controllers
         private TIJNEntities db = new TIJNEntities();
 
         // GET: BankAccounts
-        public ActionResult Index()
+        public ActionResult Index(int? userId)
         {
             var bankAccounts = db.BankAccounts.Include(b => b.User);
             return View(bankAccounts.ToList());

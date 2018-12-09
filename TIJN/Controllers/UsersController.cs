@@ -70,13 +70,22 @@ namespace TIJN.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "userID,planID,firstName,lastName,SSN,balance,email,phoneNumber,password,loginStatus")] User user)
         {
-            if (ModelState.IsValid)
+            if (user.SSN != null)
             {
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                user.planID = 1;
             }
 
+            else
+            {
+                user.planID = 2;
+            }
+            //if (ModelState.IsValid)
+            //{
+            db.Users.Add(user);
+            db.SaveChanges();
+        
+            return Redirect("~/Home/Index");
+            //}
             ViewBag.planID = new SelectList(db.Plans, "planID", "planID", user.planID);
             return View(user);
         }
