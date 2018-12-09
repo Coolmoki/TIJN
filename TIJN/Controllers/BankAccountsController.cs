@@ -17,7 +17,7 @@ namespace TIJN.Controllers
         // GET: BankAccounts
         public ActionResult Index(int? userId)
         {
-            var bankAccounts = db.BankAccounts.Include(b => b.User);
+            var bankAccounts = db.BankAccounts.Where(b => b.userID == userId).Include(b => b.User);
             return View(bankAccounts.ToList());
         }
 
