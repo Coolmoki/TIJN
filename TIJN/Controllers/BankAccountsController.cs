@@ -40,7 +40,7 @@ namespace TIJN.Controllers
         // GET: BankAccounts/Create
         public ActionResult Create(int? userId)
         {
-            ViewBag.userID = new SelectList(db.Users.Where(b => b.userID == userId), "userID", "firstName"); ;
+            ViewBag.userID = new SelectList(db.Users.Where(b => b.userID == userId), "userID", "firstName");
             return View();
         }
 
@@ -53,7 +53,7 @@ namespace TIJN.Controllers
             }
             BankAccount bankAccount = db.BankAccounts.Find(id);
             TIJN.Models.TransferViewModel transferVM = new TIJN.Models.TransferViewModel();
-            transferVM.balance = bankAccount.User.balance;
+            transferVM.balance = bankAccount.User.balance.Value;
             transferVM.bankaccountID = bankAccount.bankaccountID;
             transferVM.userID = bankAccount.User.userID;
             if (bankAccount == null)

@@ -125,7 +125,7 @@ namespace TIJN.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.planID = new SelectList(db.Plans, "planID", "planID", user.planID);
-            return View(user);
+            return Redirect("~/Home/Index");
         }
 
         // GET: Users/Delete/5

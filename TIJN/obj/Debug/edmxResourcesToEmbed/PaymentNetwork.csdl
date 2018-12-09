@@ -31,9 +31,9 @@
     <Property Name="firstName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="lastName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="SSN" Type="Int32" />
-    <Property Name="balance" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="balance" Type="Decimal" Precision="10" Scale="2" />
     <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="phoneNumber" Type="Int32" />
+    <Property Name="phoneNumber" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
     <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="loginStatus" Type="Int32" />
     <NavigationProperty Name="BankAccounts" Relationship="TIJNModel.FK_BankAccount_User" FromRole="User" ToRole="BankAccount" />
@@ -46,7 +46,6 @@
     <EntitySet Name="Plans" EntityType="Self.Plan" />
     <EntitySet Name="Users" EntityType="Self.User" />
     <EntitySet Name="payments" EntityType="TIJNModel.payment" />
-    <EntitySet Name="sysdiagrams" EntityType="TIJNModel.sysdiagram" />
     <AssociationSet Name="FK_BankAccount_User" Association="TIJNModel.FK_BankAccount_User">
       <End Role="User" EntitySet="Users" />
       <End Role="BankAccount" EntitySet="BankAccounts" />
@@ -76,16 +75,6 @@
     <Property Name="status" Type="Int32" Nullable="false" />
     <NavigationProperty Name="User" Relationship="TIJNModel.FK_payment_User" FromRole="payment" ToRole="User" />
     <NavigationProperty Name="User1" Relationship="TIJNModel.FK_payment_User1" FromRole="payment" ToRole="User" />
-  </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <Association Name="FK_BankAccount_User">
     <End Type="TIJNModel.User" Role="User" Multiplicity="1" />

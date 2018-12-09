@@ -165,4 +165,3 @@ C:\Users\Ruby\Documents\GitHub\TIJN\TIJN\obj\Debug\TIJN.csproj.CoreCompileInputs
 C:\Users\Ruby\Documents\GitHub\TIJN\TIJN\obj\Debug\TIJN.csproj.CopyComplete
 C:\Users\Ruby\Documents\GitHub\TIJN\TIJN\obj\Debug\TIJN.dll
 C:\Users\Ruby\Documents\GitHub\TIJN\TIJN\obj\Debug\TIJN.pdb
-C:\Users\Ruby\Documents\GitHub\TIJN\TIJN\obj\Debug\TIJN.csprojAssemblyReference.cache

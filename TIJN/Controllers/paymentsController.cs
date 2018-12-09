@@ -15,9 +15,10 @@ namespace TIJN.Controllers
         private TIJNEntities db = new TIJNEntities();
 
         // GET: payments
-        public ActionResult Index()
+        public ActionResult Index(int? userId)
         {
-            var payments = db.payments.Include(p => p.User).Include(p => p.User1);
+            ViewBag.currentUserId = userId;
+            var payments = db.payments.Where(b => b.payeeUserID == userId || b.payorUserID == userId).Include(p => p.User).Include(p => p.User1);
             return View(payments.ToList());
         }
 
@@ -37,10 +38,10 @@ namespace TIJN.Controllers
         }
 
         // GET: payments/Create
-        public ActionResult Create()
+        public ActionResult Create(int? userId)
         {
             ViewBag.payeeUserID = new SelectList(db.Users, "userID", "firstName");
-            ViewBag.payorUserID = new SelectList(db.Users, "userID", "firstName");
+            ViewBag.payorUserID = new SelectList(db.Users.Where(b => b.userID == userId), "userID", "firstName");
             return View();
         }
 
@@ -55,7 +56,7 @@ namespace TIJN.Controllers
             {
                 db.payments.Add(payment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { userId = payment.payorUserID });
             }
 
             ViewBag.payeeUserID = new SelectList(db.Users, "userID", "firstName", payment.payeeUserID);

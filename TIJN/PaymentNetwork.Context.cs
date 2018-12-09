@@ -29,6 +29,5 @@ namespace TIJN
         public DbSet<Plan> Plans { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<payment> payments { get; set; }
-        public DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }
