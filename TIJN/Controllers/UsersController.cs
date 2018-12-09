@@ -86,6 +86,7 @@ namespace TIJN.Controllers
             }
             //if (ModelState.IsValid)
             //{
+            user.balance = 0;
             db.Users.Add(user);
             db.SaveChanges();
         

@@ -1,58 +1,106 @@
-﻿@model IEnumerable<TIJN.payment>
+﻿@model TIJN.Models.PaymentViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Payments";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create", "payments", new { userId = ViewBag.currentUserId }, null)
-</p>
+<h2>Payments</h2>
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        @Html.ActionLink("Request Money", "Request", "payments", new { userId = ViewBag.currentUserId }, null)
+    </li>
+    <li class="nav-item">
+        @Html.ActionLink("Send Money", "Send", "payments", new { userId = ViewBag.currentUserId }, null)
+    </li>
+    <li class="nav-item">
+        @Html.ActionLink("Split Bill", "Split", "payments", new { userId = ViewBag.currentUserId }, null)
+    </li>
+    <li class="nav-item">
+        @Html.ActionLink("Search to Send Money", "SearchSend", "payments", new { userId = ViewBag.currentUserId }, null)
+    </li>
+</ul>
+<h3>Requested</h3>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.amount)
+            @Html.DisplayNameFor(model => model.RequestedPayments.First().amount)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.memo)
+            @Html.DisplayNameFor(model => model.RequestedPayments.First().memo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.status)
+            @Html.DisplayNameFor(model => model.RequestedPayments.First().status)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User.firstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User1.firstName)
+            From
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model.RequestedPayments)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.memo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User1.firstName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.paymentID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.paymentID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.paymentID })
+            </td>
+        </tr>
+    }
+
+</table>
+<h3>Sent</h3>
+<table class="table">
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.amount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.memo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.firstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User1.firstName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.paymentID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.paymentID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.paymentID })
-        </td>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestedPayments.First().amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestedPayments.First().memo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestedPayments.First().status)
+        </th>
+        <th>
+            To
+        </th>
+        <th></th>
     </tr>
-}
+
+    @foreach (var item in Model.SentPayments)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.memo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.firstName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.paymentID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.paymentID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.paymentID })
+            </td>
+        </tr>
+    }
 
 </table>
