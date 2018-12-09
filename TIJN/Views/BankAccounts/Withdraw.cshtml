@@ -1,0 +1,29 @@
+﻿@model TIJN.Models.TransferViewModel
+
+@{
+    ViewBag.Title = "Withdraw";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Withdraw from Bank Account to TIJN Account</h2>
+<h3>Bank Account Balance: @Html.DisplayFor(model => model.balance)</h3>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.bankaccountID)
+    @Html.HiddenFor(model => model.balance)
+    @Html.HiddenFor(model => model.userID)
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Amount to withdraw:</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.amount, new { @min = "0", @max = @Html.DisplayFor(model => model.balance), htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Withdraw" class="btn btn-default" />
+        </div>
+    </div>
+}

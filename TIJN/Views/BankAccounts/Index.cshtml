@@ -8,7 +8,7 @@
 <h2>Bank Accounts</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", "BankAccounts", new { userId = ViewBag.currentUserId }, null)
 </p>
 <table class="table">
     <tr>
@@ -25,9 +25,14 @@
             @Html.DisplayNameFor(model => model.balance)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User.firstName)
+            Deposit
         </th>
-        <th></th>
+        <th>
+            Withdraw
+        </th>
+        <th>
+            Actions
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -45,12 +50,16 @@
             @Html.DisplayFor(modelItem => item.balance)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.User.firstName)
+            @Html.ActionLink("Deposit", "Deposit", new { id = item.bankaccountID })
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.bankaccountID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.bankaccountID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.bankaccountID })
+            @Html.ActionLink("Withdraw", "Withdraw", new { id = item.bankaccountID })
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.bankaccountID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.bankaccountID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.bankaccountID })
+
         </td>
     </tr>
 }

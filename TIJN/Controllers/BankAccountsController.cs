@@ -17,6 +17,7 @@ namespace TIJN.Controllers
         // GET: BankAccounts
         public ActionResult Index(int? userId)
         {
+            ViewBag.currentUserId = userId;
             var bankAccounts = db.BankAccounts.Where(b => b.userID == userId).Include(b => b.User);
             return View(bankAccounts.ToList());
         }
@@ -37,10 +38,48 @@ namespace TIJN.Controllers
         }
 
         // GET: BankAccounts/Create
-        public ActionResult Create()
+        public ActionResult Create(int? userId)
         {
-            ViewBag.userID = new SelectList(db.Users, "userID", "firstName");
+            ViewBag.userID = new SelectList(db.Users.Where(b => b.userID == userId), "userID", "firstName"); ;
             return View();
+        }
+
+        // GET: BankAccounts/Deposit
+        public ActionResult Deposit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BankAccount bankAccount = db.BankAccounts.Find(id);
+            TIJN.Models.TransferViewModel transferVM = new TIJN.Models.TransferViewModel();
+            transferVM.balance = bankAccount.User.balance;
+            transferVM.bankaccountID = bankAccount.bankaccountID;
+            transferVM.userID = bankAccount.User.userID;
+            if (bankAccount == null)
+            {
+                return HttpNotFound();
+            }
+            return View(transferVM);
+        }
+
+        // GET: BankAccounts/Withdraw
+        public ActionResult Withdraw(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BankAccount bankAccount = db.BankAccounts.Find(id);
+            TIJN.Models.TransferViewModel transferVM = new TIJN.Models.TransferViewModel();
+            transferVM.balance = bankAccount.balance;
+            transferVM.bankaccountID = bankAccount.bankaccountID;
+            transferVM.userID = bankAccount.User.userID;
+            if (bankAccount == null)
+            {
+                return HttpNotFound();
+            }
+            return View(transferVM);
         }
 
         // POST: BankAccounts/Create
@@ -54,7 +93,7 @@ namespace TIJN.Controllers
             {
                 db.BankAccounts.Add(bankAccount);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { userId = bankAccount.userID });
             }
 
             ViewBag.userID = new SelectList(db.Users, "userID", "firstName", bankAccount.userID);
@@ -88,7 +127,7 @@ namespace TIJN.Controllers
             {
                 db.Entry(bankAccount).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { userId = bankAccount.userID });
             }
             ViewBag.userID = new SelectList(db.Users, "userID", "firstName", bankAccount.userID);
             return View(bankAccount);
@@ -117,7 +156,7 @@ namespace TIJN.Controllers
             BankAccount bankAccount = db.BankAccounts.Find(id);
             db.BankAccounts.Remove(bankAccount);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { userId = bankAccount.userID });
         }
 
         protected override void Dispose(bool disposing)
@@ -127,6 +166,52 @@ namespace TIJN.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // POST: BankAccounts/Withdraw
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Withdraw(TIJN.Models.TransferViewModel transferVM)
+        {
+            BankAccount bankAccount = db.BankAccounts.Find(transferVM.bankaccountID);
+            User user = db.Users.Find(transferVM.userID);
+            if (ModelState.IsValid)
+            {
+                db.Entry(bankAccount).State = EntityState.Modified;
+                bankAccount.balance = bankAccount.balance - transferVM.amount;
+                db.SaveChanges();
+                db.Entry(user).State = EntityState.Modified;
+                user.balance = user.balance + transferVM.amount;
+                db.SaveChanges();
+                return RedirectToAction("Index", new { userId = bankAccount.userID });
+            }
+
+            return View(bankAccount);
+        }
+
+        // POST: BankAccounts/Deposit
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Deposit(TIJN.Models.TransferViewModel transferVM)
+        {
+            BankAccount bankAccount = db.BankAccounts.Find(transferVM.bankaccountID);
+            User user = db.Users.Find(transferVM.userID);
+            if (ModelState.IsValid)
+            {
+                db.Entry(bankAccount).State = EntityState.Modified;
+                bankAccount.balance = bankAccount.balance + transferVM.amount;
+                db.SaveChanges();
+                db.Entry(user).State = EntityState.Modified;
+                user.balance = user.balance - transferVM.amount;
+                db.SaveChanges();
+                return RedirectToAction("Index", new { userId = bankAccount.userID });
+            }
+
+            return View(bankAccount);
         }
     }
 }
