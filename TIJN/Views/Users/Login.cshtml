@@ -1,14 +1,38 @@
 ﻿@model TIJN.User
 
 @{
-    ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+                /**/
+
+                ViewBag.Title = "Login";
+                Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Login</h2>
-<p>
-    @Html.ActionLink("Signup", "Create")
-</p>
-<button type="button" onclick="location.href='@Url.Action("GetIn", "Users")'" >Login</button>
+@using (Html.BeginForm("GetIn", "Users"))
+{
+
+  
+<table>
+    <p>
+        Please enter your PhoneNumber or Email:
+    </p>
+    <p>
+        <input type="text" name="phoneNumber" />
+    </p>
+    <p>
+        Please enter password:
+
+    </p>
+    <p>
+        <input type="password" name="password" />
+
+
+    </p>
+    <input type="submit" value="Login" class="btn btn-primary btn-lg btn-block" />
+    <p>
+        @Html.ActionLink("Signup", "Create")
+    </p>
+</table>
+}
 
 

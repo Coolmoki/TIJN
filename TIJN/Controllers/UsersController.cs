@@ -57,9 +57,14 @@ namespace TIJN.Controllers
         }
 
         // GET: Users/GetIn
-        public ActionResult GetIn()
+        public ActionResult GetIn([Bind(Include = "email,phoneNumber,password")]string phoneNumber,string password)
         {
-            System.Web.HttpContext.Current.Session.Add("UserId", 1);
+            var check = db.Users.Where(t=>(t.phoneNumber==phoneNumber||t.email==phoneNumber)&& t.password==password).FirstOrDefault();
+            if (check != null)
+            {
+
+                System.Web.HttpContext.Current.Session.Add("UserId", check.userID);
+            }
             return Redirect("~/Home/Index");
         }
 
